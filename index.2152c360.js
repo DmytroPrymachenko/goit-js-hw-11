@@ -33,7 +33,7 @@ this.off(["close."+this.eventNamespace,"closed."+this.eventNamespace,"nextImageL
                 <span>${r}</span>
               </p>
             </div>
-          </div></a>`}function v(t){let e=function(t){let e=t.map(b).join("");return e}(t);h.divElem.insertAdjacentHTML("beforeend",e),g.refresh()}async function w(e){x.page+=1;try{let t=await x.fetchPhoto();if(0===t.hits.length)throw h.btnSearch.classList.add("visually-hidden"),"We're sorry, but you've reached the end of search results.";v(t.hits),k()}catch(e){/*@__PURE__*/t(a).Notify.warning(e)}}function k(){h.btnSearch.disabled=x.page>=x.totalPage,console.log(),console.log()}// function showLoader() {
+          </div></a>`}function v(t){let e=function(t){let e=t.map(b).join("");return e}(t);h.divElem.insertAdjacentHTML("beforeend",e),g.refresh()}async function w(e){x.page+=1;try{let t=await x.fetchPhoto();if(0===t.hits.length)throw h.btnSearch.classList.add("visually-hidden"),"We're sorry, but you've reached the end of search results.";v(t.hits),k()}catch(e){/*@__PURE__*/t(a).Notify.warning(e)}}function k(){x.page>=x.totalPage?h.btnSearch.classList.add("is-hiden"):h.btnSearch.classList.remove("is-hiden")}// function showLoader() {
 //   btnSearch.classList.add('load-more');
 // }
 // function hideLoader() {
@@ -116,6 +116,6 @@ this.off(["close."+this.eventNamespace,"closed."+this.eventNamespace,"nextImageL
 // function updateStatusLoadMore() {
 //   refs.btnSearch.disabled = photosAPI.page >= PhotoAPI.totalPage;
 // }
-//# sourceMappingURL=index.47453150.js.map
+//# sourceMappingURL=index.2152c360.js.map
 
-//# sourceMappingURL=index.47453150.js.map
+//# sourceMappingURL=index.2152c360.js.map

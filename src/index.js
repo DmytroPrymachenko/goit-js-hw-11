@@ -1,6 +1,7 @@
 import { PhotoAPI } from './settengAPI';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
+import Notiflix from 'notiflix';
 
 const refs = {
   form: document.querySelector(`#search-form`),
@@ -21,9 +22,14 @@ async function onformElemSubmit(e) {
   photosAPI.q = formElem;
 
   photosAPI.page = 1;
-
+  const res = await photosAPI.fetchPhoto();
   try {
-    const res = await photosAPI.fetchPhoto();
+    if (res.hits.length === 0) {
+      refs.btnSearch.classList.add('visually-hidden');
+      throw 'Sorry, there are no images matching your search query. Please try again.';
+    }
+    Notiflix.Notify.success(`Hooray! We found ${res.totalHits} images.`);
+    renderTemplate(res.hits);
     photosAPI.totalPage = Math.ceil(res.totalHits / PhotoAPI.PER_PAGE);
 
     refs.divElem.innerHTML = '';
@@ -33,8 +39,8 @@ async function onformElemSubmit(e) {
     refs.btnSearch.disabled = false;
 
     updateStatusLoadMore();
-  } catch (error) {
-    console.error('Error fetching photos:', error);
+  } catch (err) {
+    Notiflix.Notify.failure(err);
   }
 }
 
@@ -88,27 +94,31 @@ async function onbtnSearchClick(photo) {
   photosAPI.page += 1;
   try {
     const res = await photosAPI.fetchPhoto();
+    if (res.hits.length === 0) {
+      refs.btnSearch.classList.add('visually-hidden');
+      throw "We're sorry, but you've reached the end of search results.";
+    }
     renderTemplate(res.hits);
     updateStatusLoadMore();
-  } catch (error) {
-    console.error('Error fetching more photos:', error);
+  } catch (err) {
+    Notiflix.Notify.warning(err);
   }
 }
 
 function updateStatusLoadMore() {
   refs.btnSearch.disabled = photosAPI.page >= photosAPI.totalPage;
-  console.log(photosAPI.page);
-  console.log(photosAPI.totalPage);
+  console.log();
+  console.log();
 }
 
-function showLoader() {
-  btnSearch.classList.add('load-more');
-}
+// function showLoader() {
+//   btnSearch.classList.add('load-more');
+// }
 
-function hideLoader() {
-  btnSearch.classList.remove('load-more');
-}
-console.log();
+// function hideLoader() {
+//   btnSearch.classList.remove('load-more');
+// }
+// console.log();
 // // import '../src/settengAPI';
 // import { PhotoAPI } from './settengAPI';
 // import SimpleLightbox from 'simplelightbox';

@@ -100,3 +100,6 @@ body {
   display: flex;
   justify-content: center;
 }
+.is-hiden {
+  display: none;
+}

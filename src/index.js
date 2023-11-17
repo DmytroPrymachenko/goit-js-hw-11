@@ -106,9 +106,9 @@ async function onbtnSearchClick(photo) {
 }
 
 function updateStatusLoadMore() {
-  refs.btnSearch.disabled = photosAPI.page >= photosAPI.totalPage;
-  console.log();
-  console.log();
+  if (photosAPI.page >= photosAPI.totalPage) {
+    refs.btnSearch.classList.add('is-hiden');
+  } else refs.btnSearch.classList.remove('is-hiden');
 }
 
 // function showLoader() {

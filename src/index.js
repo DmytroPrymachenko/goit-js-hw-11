@@ -10,7 +10,7 @@ const refs = {
 refs.btnSearch.disabled = true;
 refs.form.addEventListener('submit', onformElemSubmit);
 refs.btnSearch.addEventListener(`click`, onbtnSearchClick);
-
+let lightbox = new SimpleLightbox('.gallery a');
 const photosAPI = new PhotoAPI();
 
 async function onformElemSubmit(e) {
@@ -29,8 +29,6 @@ async function onformElemSubmit(e) {
     refs.divElem.innerHTML = '';
 
     renderTemplate(res.hits);
-
-    lightbox = new SimpleLightbox('.gallery a');
 
     refs.btnSearch.disabled = false;
 
@@ -83,6 +81,7 @@ function renderTemplate(photo) {
   const photoMarkup = photosTemplate(photo);
 
   refs.divElem.insertAdjacentHTML('beforeend', photoMarkup);
+  lightbox.refresh();
 }
 
 async function onbtnSearchClick(photo) {
@@ -102,6 +101,14 @@ function updateStatusLoadMore() {
   console.log(photosAPI.totalPage);
 }
 
+function showLoader() {
+  btnSearch.classList.add('load-more');
+}
+
+function hideLoader() {
+  btnSearch.classList.remove('load-more');
+}
+console.log();
 // // import '../src/settengAPI';
 // import { PhotoAPI } from './settengAPI';
 // import SimpleLightbox from 'simplelightbox';
